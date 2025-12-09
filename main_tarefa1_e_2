@@ -1,0 +1,125 @@
+#include <zephyr/kernel.h>
+#include <zephyr/drivers/gpio.h>
+#include <zephyr/sys/printk.h>
+
+#define SLEEP_TIME_MS 200
+
+/* LEDs da nRF52840-DK */
+#define LED1_NODE DT_ALIAS(led0)
+#define LED2_NODE DT_ALIAS(led1)
+#define LED3_NODE DT_ALIAS(led2)
+#define LED4_NODE DT_ALIAS(led3)
+
+/* Botões da nRF52840-DK */
+#define BTN1_NODE DT_ALIAS(sw0)
+#define BTN2_NODE DT_ALIAS(sw1)
+#define BTN4_NODE DT_ALIAS(sw3)
+
+/* Estruturas GPIO */
+static const struct gpio_dt_spec led1 = GPIO_DT_SPEC_GET(LED1_NODE, gpios);
+static const struct gpio_dt_spec led2 = GPIO_DT_SPEC_GET(LED2_NODE, gpios);
+static const struct gpio_dt_spec led3 = GPIO_DT_SPEC_GET(LED3_NODE, gpios);
+static const struct gpio_dt_spec led4 = GPIO_DT_SPEC_GET(LED4_NODE, gpios);
+
+static const struct gpio_dt_spec btn1 = GPIO_DT_SPEC_GET(BTN1_NODE, gpios);
+static const struct gpio_dt_spec btn2 = GPIO_DT_SPEC_GET(BTN2_NODE, gpios);
+static const struct gpio_dt_spec btn4 = GPIO_DT_SPEC_GET(BTN4_NODE, gpios);
+
+/* Callbacks dos botões */
+static struct gpio_callback btn1_cb_data;
+void button1_pressed(const struct device *dev, struct gpio_callback *cb, uint32_t pins)
+{
+    system_on = !system_on;
+    printk("Button 1 -> Sistema %s\n", system_on ? "ON" : "OFF");
+}
+
+static struct gpio_callback btn2_cb_data;
+void button2_pressed(const struct device *dev, struct gpio_callback *cb, uint32_t pins)
+{
+    target_temp++;
+    printk("Button 2 -> target_temp = %.1f ºC\n", target_temp);
+}
+
+static struct gpio_callback btn4_cb_data;
+void button4_pressed(const struct device *dev, struct gpio_callback *cb, uint32_t pins)
+{
+    target_temp--;
+    printk("Button 4 -> target_temp = %.1f ºC\n", target_temp);
+}
+
+/* Variáveis do Sistema provisórias - apenas para testes */
+bool system_on = false;
+
+double temp = 22.0;        // temperatura atual (ex: lida por sensor depois)
+double target_temp = 25.0; // temperatura desejada
+
+
+/* função main */
+int main(void)
+{
+    printk("Sistema Inicializado!\n");
+
+    /* Configurar os LEDS e botões  */
+    gpio_pin_configure_dt(&led1, GPIO_OUTPUT_INACTIVE);
+    gpio_pin_configure_dt(&led2, GPIO_OUTPUT_INACTIVE);
+    gpio_pin_configure_dt(&led3, GPIO_OUTPUT_INACTIVE);
+    gpio_pin_configure_dt(&led4, GPIO_OUTPUT_INACTIVE);
+
+    gpio_pin_configure_dt(&btn1, GPIO_INPUT);
+    gpio_pin_configure_dt(&btn2, GPIO_INPUT);
+    gpio_pin_configure_dt(&btn4, GPIO_INPUT);
+
+
+    /* cofigurar os interrupts dos botões */
+    gpio_pin_interrupt_configure_dt(&btn1, GPIO_INT_EDGE_TO_ACTIVE);
+    gpio_pin_interrupt_configure_dt(&btn2, GPIO_INT_EDGE_TO_ACTIVE);
+    gpio_pin_interrupt_configure_dt(&btn4, GPIO_INT_EDGE_TO_ACTIVE);
+
+    gpio_init_callback(&btn1_cb_data, button1_pressed, BIT(btn1.pin));
+    gpio_init_callback(&btn2_cb_data, button2_pressed, BIT(btn2.pin));
+    gpio_init_callback(&btn4_cb_data, button4_pressed, BIT(btn4.pin));
+
+    gpio_add_callback(btn1.port, &btn1_cb_data);
+    gpio_add_callback(btn2.port, &btn2_cb_data);
+    gpio_add_callback(btn4.port, &btn4_cb_data);
+
+    /* ------------------ LOOP PRINCIPAL ------------------- */
+    while (1)
+    {
+        /* --- Tarefa 1: LED1 indica ON/OFF --- */
+        gpio_pin_set_dt(&led1, system_on ? 1 : 0);
+
+        if (system_on)
+        {
+            /* --------- Tarefa 2: Controle de temperatura ---------- */
+
+            if (temp > target_temp + 5) {
+                gpio_pin_set_dt(&led4, 1);
+                gpio_pin_set_dt(&led2, 0);
+                gpio_pin_set_dt(&led3, 0);
+                printk("Temperatura ALTA (%.1f ºC)\n", temp);
+            }
+            else if (temp < target_temp - 5) {
+                gpio_pin_set_dt(&led3, 1);
+                gpio_pin_set_dt(&led2, 0);
+                gpio_pin_set_dt(&led4, 0);
+                printk("Temperatura BAIXA (%.1f ºC)\n", temp);
+            }
+            else {
+                gpio_pin_set_dt(&led2, 1);
+                gpio_pin_set_dt(&led3, 0);
+                gpio_pin_set_dt(&led4, 0);
+                printk("Temperatura NORMAL (%.1f ºC)\n", temp);
+            }
+        }
+        else
+        {
+            /* Sistema OFF → desligar LEDs 2,3,4 */
+            gpio_pin_set_dt(&led2, 0);
+            gpio_pin_set_dt(&led3, 0);
+            gpio_pin_set_dt(&led4, 0);
+        }
+
+        k_msleep(SLEEP_TIME_MS);
+    }
+}
