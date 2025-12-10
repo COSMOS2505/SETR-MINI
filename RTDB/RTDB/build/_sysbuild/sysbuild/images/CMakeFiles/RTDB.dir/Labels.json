@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "C:/Users/Gabriel/Desktop/SETR/Mini/SETR-MINI/RTDB/build/_sysbuild/sysbuild/images/CMakeFiles/RTDB"
+		},
+		{
+			"file" : "C:/Users/Gabriel/Desktop/SETR/Mini/SETR-MINI/RTDB/build/_sysbuild/sysbuild/images/CMakeFiles/RTDB.rule"
+		},
+		{
+			"file" : "C:/Users/Gabriel/Desktop/SETR/Mini/SETR-MINI/RTDB/build/_sysbuild/sysbuild/images/CMakeFiles/RTDB-complete.rule"
+		},
+		{
+			"file" : "C:/Users/Gabriel/Desktop/SETR/Mini/SETR-MINI/RTDB/build/_sysbuild/sysbuild/images/RTDB-prefix/src/RTDB-stamp/RTDB-build.rule"
+		},
+		{
+			"file" : "C:/Users/Gabriel/Desktop/SETR/Mini/SETR-MINI/RTDB/build/_sysbuild/sysbuild/images/RTDB-prefix/src/RTDB-stamp/RTDB-configure.rule"
+		},
+		{
+			"file" : "C:/Users/Gabriel/Desktop/SETR/Mini/SETR-MINI/RTDB/build/_sysbuild/sysbuild/images/RTDB-prefix/src/RTDB-stamp/RTDB-download.rule"
+		},
+		{
+			"file" : "C:/Users/Gabriel/Desktop/SETR/Mini/SETR-MINI/RTDB/build/_sysbuild/sysbuild/images/RTDB-prefix/src/RTDB-stamp/RTDB-install.rule"
+		},
+		{
+			"file" : "C:/Users/Gabriel/Desktop/SETR/Mini/SETR-MINI/RTDB/build/_sysbuild/sysbuild/images/RTDB-prefix/src/RTDB-stamp/RTDB-mkdir.rule"
+		},
+		{
+			"file" : "C:/Users/Gabriel/Desktop/SETR/Mini/SETR-MINI/RTDB/build/_sysbuild/sysbuild/images/RTDB-prefix/src/RTDB-stamp/RTDB-patch.rule"
+		},
+		{
+			"file" : "C:/Users/Gabriel/Desktop/SETR/Mini/SETR-MINI/RTDB/build/_sysbuild/sysbuild/images/RTDB-prefix/src/RTDB-stamp/RTDB-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"RTDB"
+		],
+		"name" : "RTDB"
+	}
+}

@@ -1,0 +1,7 @@
+default: RTDB
+build_dir: C:/Users/Gabriel/Desktop/SETR/Mini/SETR-MINI/RTDB/build
+domains:
+  - name: RTDB
+    build_dir: C:/Users/Gabriel/Desktop/SETR/Mini/SETR-MINI/RTDB/build/RTDB
+flash_order:
+  - RTDB

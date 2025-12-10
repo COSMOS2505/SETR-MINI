@@ -1,0 +1,13 @@
+/* nrf52840dk_nrf52840.overlay */
+/ {
+    zephyr,user {
+        /* Opcional: Ajuda a organizar, mas o código C que te dei 
+           usa macros diretas, por isso é meramente informativo aqui */
+        io-channels = <&adc 1>; 
+    };
+};
+
+/* OBRIGATÓRIO: Liga a "corrente" do bloco ADC dentro do chip */
+&adc {
+    status = "okay";
+};

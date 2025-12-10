@@ -1,0 +1,13 @@
+# Target labels
+ RTDB
+# Source files and their labels
+C:/Users/Gabriel/Desktop/SETR/Mini/SETR-MINI/RTDB/build/_sysbuild/sysbuild/images/CMakeFiles/RTDB
+C:/Users/Gabriel/Desktop/SETR/Mini/SETR-MINI/RTDB/build/_sysbuild/sysbuild/images/CMakeFiles/RTDB.rule
+C:/Users/Gabriel/Desktop/SETR/Mini/SETR-MINI/RTDB/build/_sysbuild/sysbuild/images/CMakeFiles/RTDB-complete.rule
+C:/Users/Gabriel/Desktop/SETR/Mini/SETR-MINI/RTDB/build/_sysbuild/sysbuild/images/RTDB-prefix/src/RTDB-stamp/RTDB-build.rule
+C:/Users/Gabriel/Desktop/SETR/Mini/SETR-MINI/RTDB/build/_sysbuild/sysbuild/images/RTDB-prefix/src/RTDB-stamp/RTDB-configure.rule
+C:/Users/Gabriel/Desktop/SETR/Mini/SETR-MINI/RTDB/build/_sysbuild/sysbuild/images/RTDB-prefix/src/RTDB-stamp/RTDB-download.rule
+C:/Users/Gabriel/Desktop/SETR/Mini/SETR-MINI/RTDB/build/_sysbuild/sysbuild/images/RTDB-prefix/src/RTDB-stamp/RTDB-install.rule
+C:/Users/Gabriel/Desktop/SETR/Mini/SETR-MINI/RTDB/build/_sysbuild/sysbuild/images/RTDB-prefix/src/RTDB-stamp/RTDB-mkdir.rule
+C:/Users/Gabriel/Desktop/SETR/Mini/SETR-MINI/RTDB/build/_sysbuild/sysbuild/images/RTDB-prefix/src/RTDB-stamp/RTDB-patch.rule
+C:/Users/Gabriel/Desktop/SETR/Mini/SETR-MINI/RTDB/build/_sysbuild/sysbuild/images/RTDB-prefix/src/RTDB-stamp/RTDB-update.rule
